@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react';
-import { getApiBaseUrl, normalizeCollection } from '../utils/api';
+import { normalizeCollection } from '../utils/api';
 
 function Activities() {
   const [activities, setActivities] = useState([]);
   const [error, setError] = useState('');
+  const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim();
+  const apiBaseUrl = codespaceName
+    ? `https://${codespaceName}`
+    : 'http://localhost:8000';
 
   useEffect(() => {
     let isMounted = true;
 
     const loadActivities = async () => {
       try {
-        const response = await fetch(`${getApiBaseUrl()}/api/activities/`);
+        const response = await fetch(`${apiBaseUrl}-8000.app.github.dev/api/activities`);
 
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
