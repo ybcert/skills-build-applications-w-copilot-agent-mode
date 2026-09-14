@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { buildApiUrl, normalizeCollection } from '../utils/api';
+import { getApiBaseUrl, normalizeCollection } from '../utils/api';
 
 function Activities() {
   const [activities, setActivities] = useState([]);
@@ -10,7 +10,7 @@ function Activities() {
 
     const loadActivities = async () => {
       try {
-        const response = await fetch(buildApiUrl('activities'));
+        const response = await fetch(`${getApiBaseUrl()}/api/activities/`);
 
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
